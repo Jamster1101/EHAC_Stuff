@@ -1,0 +1,74 @@
+CTF Commands
+
+	General
+strings
+grep
+echo [-n] '...' | base[32][64] -d
+printf '...' | base[32][64] -d
+sha1sum
+md5sum
+sha256sum
+exiftool
+xxd or hexdump
+file
+stat
+perl
+unzip
+Try both echo and printf - they give different hashes - try using ‘echo -n… ‘ 
+
+	Known Vulnerability e.g heartbleed
+msfconsole -> search '...' e.g CVE-2015-0160
+nmap -p [port] --script [script]
+
+	Steganography
+steghide extract -sf ...
+binwalk -D='.*' [image]
+openssl enc -d -[type of encryption] -in [file to decrypt] -out [where its extracted] -pass pass:["password"] -pbkdf2
+
+	XSS
+onclick=''
+onerror=''
+onmouseover=''
+href.[...php] e.g location.href='fulldictionary.php';
+<script>alert()</script>
+<img src=x onerror=alert() >
+javascript:alert()
+Data:text/javascript,alert()
+
+	SQL Injection
+information_schema.[tables][columns]; -- (make sure to have a space at the end)
+‘ UNION SELECT TABLE_NAME FROM information_schema.tables— -
+‘UNION SELECT * FROM [TABLE_NAME]
+' UNION SELECT column_name, null FROM information_schema.columns WHERE table_name='users'-- 
+‘ ORDER BY 1,2,3—
+
+	Java
+procyon (Decompiles .class file)
+Javac (Recompiles a .java file to a .class)
+jar cvfm [File to make.jar] manifest.txt -C [location] . 
+
+	Password hashes
+john --format=raw-md5 [file]
+
+	Disk imaging
+E2tools - if its a ex2t file
+e2ls / e2ls -al
+e2cp
+Sudo mount [img] [file] (make directory first with mkdir)
+
+	Git
+git log -p [file]
+
+        Overwriting a file/ Buffer Overflow
+$(perl -e 'print "A"x<EXTRA> . "\xef\xbe\xad\xde"')
+nm -g -C [file] // this will give you the headings
+objdump -x [file] | grep 'CI79F3UN'
+
+	Wireshark
+If extract bytes isn’t working: Follow the stream type e.g if its TCP follow that and then change the view to “Raw” then save as a .bin
+File -> Export Objects -> HTTP/TCP etc.. -> Save all
+Potentially - follow stream - tcp - change format to raw - save as .bin file and extract
+
+	Hex Conversion
+
+printf "%d\n" 0x60
